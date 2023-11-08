@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Elpris Resultat</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<body>
+    <div class="container text-center mt-5">
+        <h1 class="display-4">Elpris Resultat</h1> <!-- Larger display-4 class for the heading -->
+        <p class="lead">Här är prisuppgifterna:</p> <!-- Added lead class to make the text stand out -->
+    </div>
+
+    {{ prices_df | safe }} <!-- Display the Pandas DataFrame as HTML table -->
+
+</body>
+</html>
