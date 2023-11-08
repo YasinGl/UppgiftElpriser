@@ -63,6 +63,7 @@ def index():
                     price_data.append({
                         "SEK per KWh": price["SEK_per_kWh"],
                         "EUR per KWh": price["EUR_per_kWh"],
+                        "EXR": price["EXR"],
                         "timestamp": timestamp,
                         "PRISKLASS": price_classes[price_class]
                     })
