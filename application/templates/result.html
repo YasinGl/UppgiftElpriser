@@ -3,14 +3,46 @@
 <head>
     <title>Elpris Resultat</title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        #video-background {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            z-index: -1;
+        }
+        .container {
+            position: relative;
+            z-index: 1;
+            color: #fff;
+            text-align: center;
+        }
+    </style>
 </head>
 <body>
+    <video autoplay loop muted id="video-background">
+        <source src="{{ url_for('static', filename='yasinelpriser.mp4') }}" type="video/mp4">
+    </video>
+
     <div class="container text-center mt-5">
-        <h1 class="display-4">Elpris Resultat</h1> <!-- Larger display-4 class for the heading -->
-        <p class="lead">Här är prisuppgifterna:</p> <!-- Added lead class to make the text stand out -->
+        <h1 class="display-4">Elpris Resultat</h1>
+        <p class="lead">Här är prisuppgifterna:</p>
     </div>
 
-    {{ prices_df | safe }} <!-- Display the Pandas DataFrame as HTML table -->
-
+    <table class="table table-dark">
+        <thead>
+            <tr class="table-active">
+                <th scope="col">SEK per KWh</th>
+                <th scope="col">EUR per KWh</th>
+                <th scope="col">Tid</th>
+                <th scope="col">PRISKLASS</th>
+            </tr>
+        </thead>
+        <tbody>
+            {{ prices_df | safe }}
+        </tbody>
+    </table>
 </body>
 </html>

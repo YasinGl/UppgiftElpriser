@@ -3,8 +3,29 @@
 <head>
     <title>Elpris App</title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        #video-background {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            z-index: -1;
+        }
+        .container {
+            position: relative;
+            z-index: 1;
+            color: #fff;
+            text-align: center;
+        }
+    </style>
 </head>
 <body>
+    <video autoplay loop muted id="video-background">
+        <source src="{{ url_for('static', filename='yasinelpriser.mp4') }}" type="video/mp4">
+    </video>
+
     <div class="container text-center mt-5">
         <h1 class="display-4">Elpris App</h1> <!-- Larger display-4 class for the heading -->
         <form method="POST" class="mt-3">

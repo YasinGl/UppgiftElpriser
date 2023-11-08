@@ -56,19 +56,19 @@ def index():
         if not error_message:
             prices = get_prices(selected_date, price_class)
             if "error" not in prices:
-                # Calculate the start and end timestamps for the entire day
-                start_timestamp = f'{selected_date} 00:00'
-                end_timestamp = f'{selected_date} 23:59'
+                price_data = []
 
-                # Create a Pandas DataFrame with selected columns
-                df = pd.DataFrame([{
-                    "SEK_per_kWh": prices[0]["SEK_per_kWh"],
-                    "EUR_per_kWh": prices[0]["EUR_per_kWh"],
-                    "EXR": prices[0]["EXR"],
-                    "start_timestamp": start_timestamp,
-                    "end_timestamp": end_timestamp,
-                    "PRISKLASS": price_classes[price_class]
-                }])
+                for price in prices:
+                    timestamp = price["time_start"].split("T")[1][:5]
+                    price_data.append({
+                        "SEK per KWh": price["SEK_per_kWh"],
+                        "EUR per KWh": price["EUR_per_kWh"],
+                        "timestamp": timestamp,
+                        "PRISKLASS": price_classes[price_class]
+                    })
+
+                # Create a Pandas DataFrame with the price data
+                df = pd.DataFrame(price_data)
 
                 return render_template("result.html", prices_df=df.to_html(classes='table table-striped table-hover mt-4', index=False, escape=False, render_links=True), max_date_str=max_date_str)
             else:
