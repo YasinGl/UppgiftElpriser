@@ -38,7 +38,6 @@ def format_time(prices):
     if "hour" in prices and "minute" in prices:
         return f"{prices['hour']:02d}:{prices['minute']:02d}"
     return "N/A"
-
 @app.route("/", methods=["GET", "POST"])
 def index():
     error_message = None
@@ -52,8 +51,9 @@ def index():
 
         if not is_valid_date(selected_date):
             error_message = "Ogiltigt datum. Ange ett giltigt datum inom gränserna."
-
-        if not error_message:
+        elif price_class not in price_classes:
+            error_message = "Ogiltig prisklass."
+        else:
             prices = get_prices(selected_date, price_class)
             if "error" not in prices:
                 price_data = []
@@ -63,7 +63,6 @@ def index():
                     price_data.append({
                         "SEK per KWh": price["SEK_per_kWh"],
                         "EUR per KWh": price["EUR_per_kWh"],
-                        "EXR": price["EXR"],
                         "timestamp": timestamp,
                         "PRISKLASS": price_classes[price_class]
                     })
@@ -76,6 +75,8 @@ def index():
                 error_message = prices["error"]
 
     return render_template("index.html", error_message=error_message, price_classes=price_classes, selected_date=selected_date, max_date_str=max_date_str)
+
+# Add your existing code for the error handler
 
 @app.errorhandler(404)
 def page_not_found(e):
